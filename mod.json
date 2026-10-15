@@ -1,0 +1,17 @@
+{
+	"geode": "5.10.1",
+	"gd": {
+		"win": "2.2081",
+		"android": "2.2081",
+		"mac": "2.2081",
+		"ios": "2.2081"
+	},
+	"id": "miskaa.smooth-editor-zoom",
+	"name": "Smooth Editor Zoom",
+	"version": "v1.0.0",
+	"developer": "miskaa",
+	"description": "smooth editor zooming yeah yeah thats yeah OwO",
+	"dependencies": {
+		"geode.node-ids": ">=v1.23.3"
+	}
+}
