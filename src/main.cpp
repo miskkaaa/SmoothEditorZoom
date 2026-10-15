@@ -124,12 +124,14 @@ class $modify(LevelEditorLayer) {
         editorUI->updateZoom(next);
         fields->m_applying = false;
 
-        if (m_groundLayer) {
-            m_groundLayer->setScale(next);
-        }
-
         auto after = m_objectLayer->convertToWorldSpace(before);
         auto d = parent ? parent->convertToNodeSpace(mouse) - parent->convertToNodeSpace(after) : mouse - after;
         m_objectLayer->setPosition(m_objectLayer->getPosition() + d);
+
+        if (m_groundLayer) {
+            // idk what else to do to fix this
+            m_groundLayer->setScale(next);
+            m_groundLayer->setPosition(m_groundLayer->getPosition() + d);
+        }
     }
 };
