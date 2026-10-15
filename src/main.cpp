@@ -84,7 +84,7 @@ class $modify(a, EditorUI) { /* too lazy to name the fields shit anything else t
             fields->m_targetzoomthing2 = true;
         }
 
-        fields->m_targetzoom = std::clamp(fields->m_targetzoom + zoom - current, 0.2f, 2.0f);
+        fields->m_targetzoom = std::clamp(fields->m_targetzoom + zoom - current, 0.2f, 4.0f);
     }
 };
 
@@ -135,7 +135,7 @@ class $modify(LevelEditorLayer) {
         }
 
         const float current = m_objectLayer->getScale();
-        fields->m_targetzoom = std::clamp(fields->m_targetzoom, 0.2f, 2.0f);
+        fields->m_targetzoom = std::clamp(fields->m_targetzoom, 0.2f, 4.0f);
         const float difference = fields->m_targetzoom - current;
 
         if (std::abs(difference) < fields->m_targetzoom * 0.0001f) return;

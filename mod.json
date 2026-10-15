@@ -10,7 +10,11 @@
 	"name": "Smooth Editor Zoom",
 	"version": "v1.0.0",
 	"developer": "miskaa",
-	"description": "smooth editor zooming yeah yeah thats yeah OwO",
+	"description": "smooth editor zooming yeah yeah",
+	"links": {
+		"source": "https://github.com/miskkaaa/SmoothEditorZoom/"
+	},
+	"tags": ["editor", "enhancement"],
 	"dependencies": {
 		"geode.node-ids": ">=v1.23.3"
 	}
