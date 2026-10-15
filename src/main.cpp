@@ -1,9 +1,37 @@
 #include <Geode/Geode.hpp>
 #include <Geode/modify/LevelEditorLayer.hpp>
 #include <Geode/modify/EditorUI.hpp>
+#include <Geode/modify/GJBaseGameLayer.hpp>
 #include <Geode/utils/Keyboard.hpp>
 
 using namespace geode::prelude;
+
+// thank you alpha :D
+class $modify(GJBaseGameLayer) {
+    void updateCameraBGArt(CCPoint position, float zoom) {
+        GJBaseGameLayer::updateCameraBGArt(position, zoom);
+        if (m_playbackMode == PlaybackMode::Playing) return;
+
+        auto editorLayer = typeinfo_cast<LevelEditorLayer*>(this);
+        if (!editorLayer || !m_groundLayer || !m_objectLayer) return;
+
+        float camX = m_objectLayer->getPositionX();
+
+        if (m_groundLayer->m_ground1Sprite ||
+            m_groundLayer->m_ground2Sprite) {
+
+            float scaleX = m_groundLayer->getScaleX();
+            if (scaleX == 0.f || m_groundLayer->m_textureWidth <= 0.f) return;
+
+            float originX = camX / scaleX;
+            int tilesToMove = static_cast<int>(std::ceil(originX / m_groundLayer->m_textureWidth));
+            float finalX = originX - (tilesToMove * m_groundLayer->m_textureWidth);
+
+            if (m_groundLayer->m_ground1Sprite) m_groundLayer->m_ground1Sprite->setPositionX(finalX);
+            if (m_groundLayer->m_ground2Sprite) m_groundLayer->m_ground2Sprite->setPositionX(finalX);
+        }
+    }
+};
 
 class $modify(a, EditorUI) { /* too lazy to name the fields shit anything else than "a" */
     struct Fields {
@@ -127,11 +155,5 @@ class $modify(LevelEditorLayer) {
         auto after = m_objectLayer->convertToWorldSpace(before);
         auto d = parent ? parent->convertToNodeSpace(mouse) - parent->convertToNodeSpace(after) : mouse - after;
         m_objectLayer->setPosition(m_objectLayer->getPosition() + d);
-
-        if (m_groundLayer) {
-            // idk what else to do to fix this
-            m_groundLayer->setScale(next);
-            m_groundLayer->setPosition(m_groundLayer->getPosition() + d);
-        }
     }
 };
